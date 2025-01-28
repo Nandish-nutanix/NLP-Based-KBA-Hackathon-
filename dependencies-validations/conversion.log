@@ -1,0 +1,10 @@
+2025-01-28 07:49:06,023 - INFO - KBArticleConverter initialized.
+2025-01-28 07:49:06,513 - INFO - PDF text extracted successfully.
+2025-01-28 07:49:06,514 - INFO - Validations parsed successfully. Found 4 validations.
+2025-01-28 07:49:06,514 - INFO - Dependencies parsed successfully. Found 1 dependencies.
+2025-01-28 07:49:06,515 - INFO - Configuration saved to /home/sravya.venkamsetty/NLP-Based-KBA-Hackathon-/dependencies-validations/KB-1_config.yaml.
+2025-01-28 07:49:41,984 - INFO - KBArticleConverter initialized.
+2025-01-28 07:49:42,469 - INFO - PDF text extracted successfully.
+2025-01-28 07:49:42,470 - INFO - Validations parsed successfully. Found 5 validations.
+2025-01-28 07:49:42,470 - INFO - Dependencies parsed successfully. Found 0 dependencies.
+2025-01-28 07:49:42,471 - INFO - Configuration saved to /home/sravya.venkamsetty/NLP-Based-KBA-Hackathon-/dependencies-validations/KB-2_config.yaml.

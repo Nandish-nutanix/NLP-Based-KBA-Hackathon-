@@ -1,0 +1,10 @@
+dependencies: []
+knowledge_base:
+  extraction_date: '2025-01-28'
+  source_file: /home/sravya.venkamsetty/NLP-Based-KBA-Hackathon-/data/raw/KB-2.pdf
+validations:
+- Check
+- failure
+- check
+- error
+- issue
