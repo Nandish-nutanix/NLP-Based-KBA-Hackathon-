@@ -1,13 +1,23 @@
+categorized_inputs:
+  error:
+  - failure
+  - issue
+  - error
+  file_path: []
+  ip_address:
+  - xx.xx.xx.xx
+  maintenance_term:
+  - maintenance
+  precheck:
+  - test_hosts_in_maintenance_mode
 inputs_arguments:
-- /01/25
-- maintenance
-- error
-- xx.xx.xx.xx
-- KB 9046
 - test_hosts_in_maintenance_mode
 - failure
+- maintenance
 - issue
-inputs_count: 8
+- xx.xx.xx.xx
+- error
+inputs_count: 6
 knowledge_base:
   extraction_date: '2025-01-28'
   source_file: /home/rangu.ushasri/src/main/views/hack1/NLP-Based-KBA-Hackathon-/data/raw/KB-2.pdf

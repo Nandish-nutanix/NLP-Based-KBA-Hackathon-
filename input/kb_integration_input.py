@@ -38,31 +38,37 @@ class KBArticleConverter:
                 'extraction_date': date.today().isoformat()
             },
             'inputs_arguments': [],
-            'inputs_count': 0  # Add field for count of inputs
+            'inputs_count': 0,  # Add field for count of inputs
+            'categorized_inputs': {}  # Add categorized inputs
         }
 
-        # Patterns
+        # Updated patterns
         patterns = {
-            'ip_pattern': r'\b(?:\d{1,3}\.){3}\d{1,3}\b|\b(?:xx\.){3}xx\b',  # IP addresses or placeholders
-            'kb_pattern': r'\bKB[-_ ]?\d+\b',  # KB references
-            'precheck_pattern': r'test_hosts_in_maintenance_mode',  # Precheck term
-            'error_pattern': r'\b(error|failure|exception|issue|problem|ERR_\d{4}|Code: \d+)\b',  # Errors
-            'file_path_pattern': r'/[\w/.-]+',  # File paths
-            'maintenance_pattern': r'\b(recovery|maintenance|backup|restore|failover|repair)\b'  # Maintenance terms
+            'ip_address': r'\b(?:\d{1,3}\.){3}\d{1,3}\b|\b(?:xx\.){3}xx\b',  # IP addresses or placeholders
+            'precheck': r'test_hosts_in_maintenance_mode',  # Precheck term
+            'error': r'\b(error|failure|exception|issue|problem|ERR_\d{4}|Code: \d+)\b',  # Errors
+            'file_path': r'(/(?:[a-zA-Z0-9_\-./]+)+)',  # Valid file paths
+            'maintenance_term': r'\b(recovery|maintenance|backup|restore|failover|repair)\b'  # Maintenance terms
         }
 
         # Extract matches for each pattern
-        matches = {key: re.findall(pattern, text) for key, pattern in patterns.items()}
+        categorized_inputs = {key: re.findall(pattern, text) for key, pattern in patterns.items()}
+
+        # Filter invalid file paths (e.g., "/01/25" as a date-like format)
+        categorized_inputs['file_path'] = [
+            path for path in categorized_inputs['file_path'] if not re.match(r'/\d{2}/\d{2}', path)
+        ]
 
         # Combine inputs and ensure uniqueness
         combined_inputs = []
-        for key, values in matches.items():
+        for key, values in categorized_inputs.items():
             combined_inputs.extend(values)
 
         # Remove duplicates and update count
         unique_inputs = list(set(combined_inputs))
         config['inputs_arguments'] = unique_inputs
         config['inputs_count'] = len(unique_inputs)  # Store the count of unique inputs
+        config['categorized_inputs'] = {key: list(set(values)) for key, values in categorized_inputs.items()}
 
         logging.info(f"Inputs and arguments parsed successfully. Total unique inputs: {config['inputs_count']}")
         return config
@@ -115,6 +121,7 @@ def main():
     # Output summary
     print("Conversion complete!")
     print(f"Inputs/Arguments: {config['inputs_arguments']}")
+    print(f"Categorized Inputs: {config['categorized_inputs']}")
     print(f"Total Input/Arguments: {config['inputs_count']}")
 
 
