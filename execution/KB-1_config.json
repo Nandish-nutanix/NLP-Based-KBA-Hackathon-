@@ -1,69 +1,122 @@
 {
     "metadata": {
-        "title": "NCC Health Check:cluster_services_down_check",
-        "summary": "The NCC health check cluster_services_down_check verifies if the clusterservices are running on all Controller VMs in the cluster. If any clusterservice is not running on any of the Controller VMs in the cluster, thischeck fails."
+        "title": "Cluster Health Check Sequence",
+        "summary": "The Cluster Health Check Sequence ensures all cluster services are running, troubleshoots downed services, restarts affected services, and confirms the resolution of issues."
     },
     "system_configuration": {
-        "nodes": [],
-        "clusters": []
+        "nodes": [
+            {
+                "ip": "x.x.x.x",
+                "username": "nutanix",
+                "description": "Primary Controller VM"
+            },
+            {
+                "ip": "x.x.x.x",
+                "username": "nutanix",
+                "description": "Secondary Controller VM"
+            }
+        ],
+        "clusters": [
+            {
+                "name": "Primary Cluster",
+                "description": "Cluster running NCC health checks"
+            },
+            {
+                "name": "Backup Cluster",
+                "description": "Backup and failover cluster"
+            }
+        ]
     },
     "actions": [
         {
-            "action_name": "Remove node from maintenance mode",
-            "description": "Check if the node is in maintenance mode and remove it if necessary",
+            "action_name": "NCC Health Check",
+            "description": "Run the NCC health checks on the cluster.",
             "commands": [
-                "ncli host ls",
-                "ncli host edit id=<host id> enable-maintenance-mode=false"
+                "ncc health_checks run_all",
+                "ncc health_checks system_checks cluster_services_down_check",
+                "cat /home/nutanix/data/logs/ncc-output-latest.log"
             ]
         },
         {
-            "action_name": "Start services",
-            "description": "Start any services that are listed as DOWN",
+            "action_name": "Service Troubleshooting",
+            "description": "Identify and resolve issues with downed services.",
             "commands": [
-                "service1",
-                "service2"
+                "ncli host ls",
+                "ncli host edit id=<host_id> enable-maintenance-mode=false",
+                "for i in `svmips`; do echo \"CVM: $i\"; ssh $i \"ls -ltr /home/nutanix/data/logs/*.FATAL\"; done"
+            ]
+        },
+        {
+            "action_name": "Restart Cluster Services",
+            "description": "Restart affected cluster services.",
+            "commands": [
+                "cluster start",
+                "cluster status | grep -v UP"
+            ]
+        },
+        {
+            "action_name": "Validation",
+            "description": "Re-run health checks to confirm resolution.",
+            "commands": [
+                "ncc health_checks system_checks cluster_services_down_check"
+            ]
+        },
+        {
+            "action_name": "Generate Alert",
+            "description": "Send alerts if issues persist.",
+            "commands": [
+                "echo \"Cluster services down on Controller VM x.x.x.x\" | mail -s \"Cluster Alert: Service Down\" admin@example.com"
             ]
         }
     ],
     "sequence": {
         "error": "Could not parse response",
-        "raw_text": "[\n  {\n    \"name\": \"Alert Sequence\",\n    \"description\": \"Sequence for Alert Smart\",\n    \"tasks\": [\n      \"ncli host edit id=<host id> enable-maintenance-mode=false\",\n      \"for i in `svmips`; do echo \\\\\"CVM: $i\\\\\"; ssh $i \\\"ls -ltr /home/nutanix/data/logs/*.FATAL\\\\\"; done\"\n    ]\n  }\n]"
+        "raw_text": "[\n  {\n    \"name\": \"Cluster Health Check Sequence\",\n    \"description\": \"Sequential order for cluster service checks and validations.\",\n    \"tasks\": [\n      \"Run NCC health checks for all services.\",\n      \"Verify and troubleshoot services marked as DOWN.\",\n      \"Restart affected services.\",\n      \"Re-run health checks to confirm issue resolution.\",\n      \"Generate alerts if issues persist.\"\n    ]\n  }\n]"
     },
     "dependencies": [
         {
-            "task": "Start services",
+            "task": "Cluster Health Validation",
             "depends_on": [
-                "Check if node is in maintenance mode",
-                "Collect FATAL logs for the service that is down"
+                "NCC Health Check"
             ]
         },
         {
-            "task": "Check if node is in maintenance mode",
-            "depends_on": []
-        },
-        {
-            "task": "Run the ncli host ls command on the CVM",
+            "task": "Service Restart",
             "depends_on": [
-                "Check if node is in maintenance mode"
+                "Cluster Health Validation"
             ]
         }
     ],
     "validations": [
         {
-            "action": "Start services that are listed as DOWN",
-            "expected_result": "Services should start successfully",
+            "action": "NCC Health Check",
+            "expected_result": "All cluster services are reported as running.",
             "validation_steps": [
-                "Check if the node is in maintenance mode by running the ncli host ls command on the CVM.",
-                "Verify if the parameter Under Maintenance Mode is set to False for the node where the services are down."
+                "Ensure no services are marked as DOWN in the logs.",
+                "Check for PASS status in the output."
+            ]
+        },
+        {
+            "action": "Service Troubleshooting",
+            "expected_result": "Affected services are restarted and functional.",
+            "validation_steps": [
+                "Verify services using 'cluster status | grep -v UP'.",
+                "Confirm logs are free of FATAL errors."
             ]
         }
     ],
     "commands": {
         "ordered_commands": [
+            "ncc health_checks run_all",
+            "ncc health_checks system_checks cluster_services_down_check",
+            "cat /home/nutanix/data/logs/ncc-output-latest.log",
             "ncli host ls",
-            "ncli host edit id=<host id> enable-maintenance-mode=false",
-            "service1",
-            "service2"
+            "ncli host edit id=<host_id> enable-maintenance-mode=false",
+            "for i in `svmips`; do echo \"CVM: $i\"; ssh $i \"ls -ltr /home/nutanix/data/logs/*.FATAL\"; done",
+            "cluster start",
+            "cluster status | grep -v UP",
+            "ncc health_checks system_checks cluster_services_down_check",
+            "echo \"Cluster services down on Controller VM x.x.x.x\" | mail -s \"Cluster Alert: Service Down\" admin@example.com"
         ]
     }
 }
