@@ -1,0 +1,74 @@
+system_configuration:
+  nodes: "This error occurred while trying to upgrade the system from a previous version\
+    \ to LCM 2.3.0. This issue can be resolved by following these steps:\n1. Check\
+    \ if any host is in maintenance mode. If yes, exit maintenance mode for that host.\n\
+    2. Re-run LCM update operation.\n3. If the issue persists, contact Nutanix support.\n\
+    4. Provide a clear and concise response.\nContext:\n25/01/25, 9:39\u202FAM\nPage\
+    \ 5 of 5about:srcdoc\nSolution:For AHV1. Identify the host that is not\_Schedulable.Operation\
+    \ failed. Reason: LCM prechecks detected 1 issue that would cause upgrade failures.\
+    \ Check 'test_hosts_in_maintenance_mode' failed: Hosts xx.x.xx.10 xx.x.xx.11 are\
+    \ in maintenance mode. Please refer to KB 9046\nPage 6 of 5about:srcdoc2. Check\
+    \ the status of the host:3. Check for Node_state --> \"kEnteredMaintenanceMode\"\
+    4. Check for \"Schedulable\" value --> FalseIf\_1 and 2 are True, proceed to the\
+    \ next step. Otherwise, contact Nutanix Support.Example output:nutanix@CVM~$ acli\
+    \ host.listHypervisor IP  Hypervisor DNS Name"
+  clusters: "This issue is due to AHV maintenance mode. The host is in maintenance\
+    \ mode due to previous upgrade failure, maintenance activity etc. LCM update operation\
+    \ failed with the following error when it detected 1 or more host(s) in Maintenance\
+    \ mode.\n25/01/25, 9:39\u202FAM\nPage 5 of 5about:srcdoc\nSolution:For AHV1. Identify\
+    \ the host that is not\_Schedulable.Operation failed. Reason: Lcm prechecks detected\
+    \ 1 issue that would cause upgrade failures. Check 'test_hosts_in_maintenance_mode'\
+    \ failed: Hosts xx.x.xx.10 xx.x.xx.11 are in maintenance mode. Please refer to\
+    \ KB 9046\nPage 6 of 5about:srcdoc2. Check the status of the host:3. Check for\
+    \ Node_state --> \"kEnteredMaintenanceMode\"4. Check for \"Schedulable\" value\
+    \ --> FalseIf\_1 and 2 are True, proceed to the next step. Otherwise, contact\
+    \ Nutanix Support.Example output:nutanix@CVM~$ acli host.listHypervisor IP  Hypervisor\
+    \ DNS Name  Host UUID                             Compute Only  Schedulable  Hypervisor\
+    \ Type  Hypervisor Namexx.xx.xx.11     xx.xx.xx.xx          58dffc17-896e-48ff-87a6-e90b23"
+actions: "Check the status of the host: 2. Check for Node_state --> \"kEnteredMaintenanceMode\"\
+  \ 3. Check for \"Schedulable\" value --> False\nIf\_1 and 2 are True, proceed to\
+  \ the next step. Otherwise, contact Nutanix Support.\nExample output:\nnutanix@CVM~$\
+  \ acli host.list\nHypervisor IP  Hypervisor DNS Name  Host UUID                \
+  \             Compute Only  Schedulable\nHypervisor Type  Hypervisor Namexx.xx.xx.11\
+  \     xx.xx.xx.xx          58dffc17-896e-48ff-87a6-e90b23b20471  False         False\
+  \        kKvm             AHV\nnutanix@CVM~$ acli host.get <Hypervisor IP or Hypervisor\
+  \ DNS Name or Host UUID>\nnutanix@CVM~$ acli host.get 58dffc17-896e-48ff-87a6-e90b23b20471\n\
+  Host UUID                             Compute Only  Schedulable\n58dffc17-896e-48ff-87a6-e90b23b20471\
+  \  False         False        kKvm             AHV\nIf the host is in Maintenance\
+  \ Mode, exit maintenance mode for that host.\nRe-run LCM update operation.\nFor\
+  \ ESXi\n1. Login to vCenter"
+sequence: "1. Check the status of the host:2. Check for Node_state --> \"kEnteredMaintenanceMode\"\
+  3. Check for \"Schedulable\" value --> FalseIf\_1 and 2 are True, proceed to the\
+  \ next step. Otherwise, contact Nutanix Support.Example output:nutanix@CVM~$ acli\
+  \ host.listHypervisor IP  Hypervisor DNS Name  Host UUID                       \
+  \      Compute Only  Schedulable  Hypervisor Type  Hypervisor Namexx.xx.xx.11  \
+  \   xx.xx.xx.xx          58dffc17-896e-48ff-87a6-e90b23b20471  False         False\
+  \        kKvm             AHVxx.xx.xx.xx     xx.xx.xx.xx          65fa3fb3-56f1-444d-872d-d144a0c54c8e\
+  \  False         True         kKvm             AHVxx.xx.xx.xx     xx.xx.xx.xx  \
+  \        70167025-1b2c-4c79-ac04-85dc547ea9e4  False         True         kKvm \
+  \            AHVxx.xx.xx.xx     xx.xx.xx.xx          67320f01-d4a8-4363-9cc4-1e676a61cc54\
+  \  False         True         kKvm             AHVnutanix@CVM~$ acli host.get <Hypervisor\
+  \ IP or Hypervisor"
+dependencies: Please provide the complete steps to run the LCM update operation.
+validations: "This is a false positive.\_The host does not exist in LCM.\_Also, the\
+  \ host does not exist in LCM.\nContext:\n25/01/25, 9:39\u202FAM\nPage 5 of 5about:srcdocLCM\
+  \ Pre-check:test_hosts_in_maintenance_modeArticle #KB-9046Last modi\uFB01ed onNov\
+  \ 22nd 2023Summary:LCM pre-check test_hosts_in_maintenance_mode checks if any host\
+  \ is inMaintenance mode.Versions affected:LCM 2.x\nLCMDescription:LCM pre-check\
+  \ test_hosts_in_maintenance_mode checks if any host is in Maintenancemode.A\_host\
+  \ could be left in maintenance due to previous upgrade failure, maintenanceactivity\
+  \ etc.LCM update operation fails with the following error when it detects 1 or more\
+  \ host(s) inMaintenance mode.\nPage 6 of 5about:srcdoc\nSolution:For AHV1. Identify\
+  \ the host that is not\_Schedulable.Operation failed. Reason: Lcm prechecks detected\
+  \ 1 issue that would cause upgrade failures. Check 'test_hosts_in_maintenance_mode'\
+  \ failed: Hosts xx.x.xx.10 xx.x.xx.11 are in maintenance mode. Please refer to KB\
+  \ 9046\nPage 7 of 5about:srcdoc"
+commands: "1. The host is in maintenance mode.2. Exit maintenance mode for that host.3.\
+  \ Re-run LCM update operation.\n25/01/25, 9:39\u202FAM\nPage 5 of 5about:srcdoc\n\
+  Solution:For ESXi1. Login to vCenter and check if the host is in Maintenance Mode.2.\
+  \ Exit maintenance mode for that host.3. Re-run LCM update operation.\nPage 6 of\
+  \ 5about:srcdoc\nSolution:For AHV1. Identify the host that is not\_Schedulable.Operation\
+  \ failed. Reason: Lcm prechecks detected 1 issue that would cause upgrade failures.\
+  \ Check 'test_hosts_in_maintenance_mode' failed: Hosts xx.x.xx.10 xx.x.xx.11 are\
+  \ in maintenance mode. Please refer to KB 9046\nPage 7 of 5about:srcdoc\nPage 8\
+  \ of"

@@ -1,0 +1,100 @@
+{
+    "metadata": {
+        "title": "LCM pre-check:test_hosts_in_maintenance_mode",
+        "summary": "Article #KB-9046Last modi\ufb01ed onNov 22nd 2023Summary:"
+    },
+    "system_configuration": {
+        "nodes": [],
+        "clusters": []
+    },
+    "actions": [
+        {
+            "action_name": "Bring HPVHST12 back online",
+            "description": "Re-run LCM update operation and bring node back online",
+            "commands": [
+                "winsh Resume-Clusternode",
+                "Get-ClusternodeName"
+            ]
+        },
+        {
+            "action_name": "Resume paused state on HPVHST12",
+            "description": "Bring it back online:3. Re-run LCM update operation.",
+            "commands": [
+                "winsh Resume-Clusternode"
+            ]
+        }
+    ],
+    "sequence": [
+        {
+            "name": "Resuming Clusternode HPVHST20",
+            "description": "Resume-Clusternode command executed on host HPVHST20",
+            "tasks": [
+                "Resume-Clusternode",
+                "HPVHST20"
+            ]
+        },
+        {
+            "name": "Exiting Maintenance Mode from host 34359738368",
+            "description": "acli exit_maintenance_mode command executed on host 34359738368",
+            "tasks": [
+                "exit_maintenance_mode",
+                "cvm_num_vcpus",
+                "cvm_uuid",
+                "logical_timestamp",
+                "max_mem_ha_reserved_bytes",
+                "mem_assigned_bytes",
+                "mem_usage_bytes",
+                "memory_size_bytes",
+                "node_state",
+                "num_cpus",
+                "schedulable",
+                "uuid"
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "task": "Resume-Clusternode",
+            "depends_on": [
+                "winsh"
+            ]
+        },
+        {
+            "task": "host.get",
+            "depends_on": [
+                "acli"
+            ]
+        },
+        {
+            "task": "host.exit_maintenance_mode",
+            "depends_on": [
+                "acli"
+            ]
+        }
+    ],
+    "validations": [
+        {
+            "action": "Resume-Clusternode",
+            "expected_result": "The cluster node resume operation should pass successfully without errors",
+            "validation_steps": [
+                "Check the host status for any error messages during the resume operation",
+                "Verify that the cluster node is successfully resumed and available for further operations"
+            ]
+        },
+        {
+            "action": "test_hosts_in_maintenance_mode",
+            "expected_result": "The test should pass without finding any hosts in maintenance mode",
+            "validation_steps": [
+                "Check if all hosts are in an 'Available' state",
+                "Verify that the test does not return any error messages"
+            ]
+        }
+    ],
+    "commands": {
+        "ordered_commands": [
+            "winsh Resume-Clusternode",
+            "Get-ClusternodeName",
+            "winsh Resume-Clusternode"
+        ]
+    }
+}

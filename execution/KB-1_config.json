@@ -1,0 +1,69 @@
+{
+    "metadata": {
+        "title": "NCC Health Check:cluster_services_down_check",
+        "summary": "The NCC health check cluster_services_down_check verifies if the clusterservices are running on all Controller VMs in the cluster. If any clusterservice is not running on any of the Controller VMs in the cluster, thischeck fails."
+    },
+    "system_configuration": {
+        "nodes": [],
+        "clusters": []
+    },
+    "actions": [
+        {
+            "action_name": "Remove node from maintenance mode",
+            "description": "Check if the node is in maintenance mode and remove it if necessary",
+            "commands": [
+                "ncli host ls",
+                "ncli host edit id=<host id> enable-maintenance-mode=false"
+            ]
+        },
+        {
+            "action_name": "Start services",
+            "description": "Start any services that are listed as DOWN",
+            "commands": [
+                "service1",
+                "service2"
+            ]
+        }
+    ],
+    "sequence": {
+        "error": "Could not parse response",
+        "raw_text": "[\n  {\n    \"name\": \"Alert Sequence\",\n    \"description\": \"Sequence for Alert Smart\",\n    \"tasks\": [\n      \"ncli host edit id=<host id> enable-maintenance-mode=false\",\n      \"for i in `svmips`; do echo \\\\\"CVM: $i\\\\\"; ssh $i \\\"ls -ltr /home/nutanix/data/logs/*.FATAL\\\\\"; done\"\n    ]\n  }\n]"
+    },
+    "dependencies": [
+        {
+            "task": "Start services",
+            "depends_on": [
+                "Check if node is in maintenance mode",
+                "Collect FATAL logs for the service that is down"
+            ]
+        },
+        {
+            "task": "Check if node is in maintenance mode",
+            "depends_on": []
+        },
+        {
+            "task": "Run the ncli host ls command on the CVM",
+            "depends_on": [
+                "Check if node is in maintenance mode"
+            ]
+        }
+    ],
+    "validations": [
+        {
+            "action": "Start services that are listed as DOWN",
+            "expected_result": "Services should start successfully",
+            "validation_steps": [
+                "Check if the node is in maintenance mode by running the ncli host ls command on the CVM.",
+                "Verify if the parameter Under Maintenance Mode is set to False for the node where the services are down."
+            ]
+        }
+    ],
+    "commands": {
+        "ordered_commands": [
+            "ncli host ls",
+            "ncli host edit id=<host id> enable-maintenance-mode=false",
+            "service1",
+            "service2"
+        ]
+    }
+}

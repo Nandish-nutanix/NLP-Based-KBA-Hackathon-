@@ -1,0 +1,91 @@
+system_configuration:
+  nodes: "Please provide a clear and concise response.\nContext:\n25/01/25, 9:40\u202F\
+    AM\nPage 3 of 4about:srcdocLCM inventory failing with error object is notsubscriptableArticle\
+    \ #KB-18275Last modi\uFB01ed onJan 24th 2025VisibilityCustomersSummary:Resolving\
+    \ an issue where LCM Inventory task fails with error \"'NoneType'object is not\
+    \ subscriptable\".Versions affected:LCM 3.1\nLCMDescription:LCM Inventory task\
+    \ fails with the error message:Veri\uFB01cation:1. SSH to the LCM leader.2. The\
+    \ traceback below is present in /home/nutanix/data/logs/genesis.out on the LCMleader.Inventory\
+    \ failed for release.smc.sas_update.update on x.x.x.25 (environment: cvm) with\
+    \ [Inventory failed with error: ['NoneType' object is not subscriptable]] nutanix@NTNX-CVM:~$\
+    \ lcm_leaderLcm leader is at x.x.x.272025-01-15 12:49:55,587Z ERROR 51339968 exception.py:86\
+    \ LCM\nPage 4 of 4about:srcdocException [LcmExceptionHandler]: Inventory Failed\
+    \ - found the following errors:Inventory failed for release.smc.sas_update.update\
+    \ on x.x.x.182 (environment:"
+  clusters: "400\nClient Error: Bad Request\nContext:\n25/01/25, 9:40\u202FAM\nPage\
+    \ 3 of 4about:srcdocLCM Inventory task failed with error object is notsubscriptableArticle\
+    \ #KB-18275Last modi\uFB01ed onJan 24th 2025VisibilityCustomersSummary:Resolving\
+    \ an issue where LCM Inventory task fails with error \"object is not subscriptable\"\
+    .Versions affected:LCM 3.1\nLCMDescription:LCM Inventory task failed with the\
+    \ error message:Veri\uFB01cation:1. SSH to the LCM leader.2. The traceback below\
+    \ is present in /home/nutanix/data/logs/genesis.out on the LCMleader.Inventory\
+    \ failed for release.smc.sas_update.update on x.x.x.25 (environment: cvm) with\
+    \ [Inventory failed with error: ['NoneType' object is not subscriptable]] nutanix@NTNX-CVM:~$\
+    \ lcm_leaderLcm leader is at x.x.x.272025-01-15 12:49:55,587Z ERROR 51339968 exception.py:86\
+    \ LCM\nPage 4 of 4about:srcdocException [LcmExceptionHandler]: Inventory Failed\
+    \ - found the following errors:Inventory failed for release.smc.sas_update.update\
+    \ on x.x.x.182 (environment:"
+actions: 'None
+
+  Error: NoneType object is not subscriptable'
+sequence: "Please provide a clear and concise response.\nContext:\n25/01/25, 9:40\u202F\
+  AM\nPage 3 of 4about:srcdocLCM inventory failing with error object is notsubscriptableArticle\
+  \ #KB-18275Last modi\uFB01ed onJan 24th 2025VisibilityCustomersSummary:Resolving\
+  \ an issue where LCM Inventory task fails with error \"'NoneType'object is not subscriptable\"\
+  .Versions affected:LCM 3.1\nLCMDescription:LCM Inventory task fails with the error\
+  \ message:Veri\uFB01cation:1. SSH to the LCM leader.2. The traceback below is present\
+  \ in /home/nutanix/data/logs/genesis.out on the LCMleader.Inventory failed for release.smc.sas_update.update\
+  \ on x.x.x.25 (environment: cvm) with [Inventory failed with error: ['NoneType'\
+  \ object is not subscriptable]] nutanix@NTNX-CVM:~$ lcm_leaderLcm leader is at x.x.x.272025-01-15\
+  \ 12:49:55,587Z ERROR 51339968 exception.py:86 LCM\nPage 4 of 4about:srcdocException\
+  \ [LcmExceptionHandler]: Inventory Failed - found the following errors:Inventory\
+  \ failed for release.smc.sas_update.update on x.x.x.182 (environment:"
+dependencies: "Please provide a clear and concise response.\nContext:\n25/01/25, 9:40\u202F\
+  AM\nPage 3 of 4about:srcdocLCM inventory failing with error object is notsubscriptableArticle\
+  \ #KB-18275Last modi\uFB01ed onJan 24th 2025VisibilityCustomersSummary:Resolving\
+  \ an issue where LCM Inventory task fails with error \"'NoneType'object is not subscriptable\"\
+  .Versions affected:LCM 3.1\nLCMDescription:LCM Inventory task fails with the error\
+  \ message:Veri\uFB01cation:1. SSH to the LCM leader.2. The traceback below is present\
+  \ in /home/nutanix/data/logs/genesis.out on the LCMleader.Inventory failed for release.smc.sas_update.update\
+  \ on x.x.x.25 (environment: cvm) with [Inventory failed with error: ['NoneType'\
+  \ object is not subscriptable]] nutanix@NTNX-CVM:~$ lcm_leaderLcm leader is at x.x.x.272025-01-15\
+  \ 12:49:55,587Z ERROR 51339968 exception.py:86 LCM\nPage 4 of 4about:srcdocException\
+  \ [LcmExceptionHandler]: Inventory Failed - found the following errors:Inventory\
+  \ failed for release.smc.sas_update.update on x.x.x.182 (environment:"
+validations: 'The expected result is "Inventory failed with error: [''NoneType'' object
+  is not subscriptable]". The actual result is "Inventory failed with error: [''NoneType''
+  object is not subscriptable]". Expected result:
+
+  Response: The expected result is "Inventory failed with error: [''NoneType'' object
+  is not subscriptable]". The actual result is "Inventory failed with error: [''NoneType''
+  object is not subscriptable]". Expected result:
+
+  Response: The expected result is "Inventory failed with error: [''None'
+commands: 'None
+
+  Exceptions:
+
+  Exception [LcmExceptionHandler]: Inventory Failed - found the following errors:
+
+  Inventory failed for release.smc.sas_update.update on x.x.x.182 (environment: cvm)
+  with [Inventory failed with error: [''NoneType'' object is not subscriptable]]
+
+  Traceback (most recent call last):
+
+  File "/tmp/lcm_framework_tmp_tin8rfiz/bdist.linux-x86_64/egg/framework/main/exception.py",
+  line 1075, in wrapper
+
+  File "/tmp/lcm_framework_tmp_tin8rfiz/bdist.linux-x86_64/egg/framework/main/framework.py",
+  line 2124, in __run_operations
+
+  File "/tmp/lcm_framework_tmp_tin8rfiz/bdist.linux-x86_64/egg/framework/main/metrics/metric_entity.py",
+  line 2375, in __call__
+
+  File "/tmp/lcm_framework_tmp_tin8rfiz/bdist.linux-x86_64/egg/framework/main/metrics/metric_entity.py",
+  line 2470, in _execution
+
+  File "/tmp/lcm_framework_tmp_tin8rfiz/bdist.linux-x86_64/egg/framework/main/base_classes/base_op.py",
+  line 235, in run
+
+  File "/tmp/lcm_framework_tmp_tin8rfiz/bdist.linux-x86_64/egg/framework/main/ops/inventory_op.py",
+  line 297,'

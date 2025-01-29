@@ -1,8 +1,0 @@
-2025-01-28 10:14:07,014 - INFO - KBArticleConverter initialized.
-2025-01-28 10:14:07,448 - INFO - PDF text extracted successfully.
-2025-01-28 10:14:07,450 - INFO - Inputs and arguments parsed successfully. Total unique inputs: 6
-2025-01-28 10:14:07,451 - INFO - Configuration saved to /home/rangu.ushasri/src/main/views/hack1/NLP-Based-KBA-Hackathon-/input/KB2_Config.yaml.
-2025-01-28 10:14:33,359 - INFO - KBArticleConverter initialized.
-2025-01-28 10:14:33,798 - INFO - PDF text extracted successfully.
-2025-01-28 10:14:33,799 - INFO - Inputs and arguments parsed successfully. Total unique inputs: 15
-2025-01-28 10:14:33,802 - INFO - Configuration saved to /home/rangu.ushasri/src/main/views/hack1/NLP-Based-KBA-Hackathon-/input/KB1_Config.yaml.

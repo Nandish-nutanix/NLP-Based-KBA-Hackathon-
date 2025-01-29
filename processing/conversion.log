@@ -1,6 +1,0 @@
-2025-01-27 00:28:43,187 - INFO - Extracted text from /Users/nandish.chokshi/Downloads/NLP_Based_KBA/data/raw/KB-1.pdf
-2025-01-27 00:28:43,294 - INFO - Parsed configuration: 15 actions, 0 validations
-2025-01-27 00:28:43,312 - INFO - Configuration saved to /Users/nandish.chokshi/Downloads/NLP_Based_KBA/config/KB-1_config.yaml
-2025-01-27 00:29:32,753 - INFO - Extracted text from /Users/nandish.chokshi/Downloads/NLP_Based_KBA/data/raw/KB-2.pdf
-2025-01-27 00:29:32,829 - INFO - Parsed configuration: 17 actions, 9 validations
-2025-01-27 00:29:32,847 - INFO - Configuration saved to /Users/nandish.chokshi/Downloads/NLP_Based_KBA/config/KB-2_config.yaml
